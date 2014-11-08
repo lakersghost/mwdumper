@@ -35,6 +35,10 @@ public class Revision {
 	public String Text;
 	public boolean Minor;
 	
+	// added by lakersghost Nov 08 2014
+	public String shal;
+	public String Model;
+	
 	public Revision() {
 		Comment = "";
 		Text = "";
