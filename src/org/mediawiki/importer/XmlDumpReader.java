@@ -158,12 +158,14 @@ public class XmlDumpReader  extends DefaultHandler {
 		endElements.put("ip","ip");
 		endElements.put("mediawiki", "mediawiki");
 		endElements.put("minor","minor");
+		endElements.put("model","model"); //ChenQ
 		endElements.put("namespaces","namespaces");
 		endElements.put("namespace","namespace");
 		endElements.put("page","page");
 		endElements.put("redirect","redirect");
 		endElements.put("restrictions","restrictions");
 		endElements.put("revision","revision");
+		endElements.put("sha1","sha1"); //ChenQ
 		endElements.put("siteinfo","siteinfo");
 		endElements.put("sitename","sitename");
 		endElements.put("text","text");
@@ -237,6 +239,9 @@ public class XmlDumpReader  extends DefaultHandler {
 			else if (qName == "title") readTitle();
 			else if (qName == "restrictions") readRestrictions();
 			else if (qName == "redirect") readRedirect();
+			else if (qName == "model") readModel(); //ChenQ
+			else if (qName == "sha1") readshal(); //ChenQ
+			
 			// rare tags:
 			else if (qName.startsWith("Thread")) threadAttribute(qName);
 			else if (qName == "mediawiki") closeMediaWiki();
@@ -392,6 +397,18 @@ public class XmlDumpReader  extends DefaultHandler {
 	void readText() {
 		rev.Text = bufferContentsOrNull();
 		if (rev.Text==null && !deleted) rev.Text = ""; //NOTE: null means deleted/supressed
+	}
+	
+	//ChenQ	
+	void readModel() {
+	       rev.Model = bufferContentsOrNull();
+	       if (rev.Model==null && !deleted) rev.Model = ""; //NOTE: null means deleted/supressed
+	}
+	
+	//ChenQ
+	void readshal() {
+	       rev.shal = bufferContentsOrNull();
+	       if (rev.shal==null && !deleted) rev.shal = ""; //NOTE: null means deleted/supressed
 	}
 	
 	// -----------

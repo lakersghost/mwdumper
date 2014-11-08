@@ -84,7 +84,10 @@ public class SqlWriter15 extends SqlWriter {
 				{"rev_user_text", revision.Contributor.Username == null ? "" : revision.Contributor.Username},
 				{"rev_timestamp", timestampFormat(revision.Timestamp)},
 				{"rev_minor_edit", revision.Minor ? ONE : ZERO},
-				{"rev_deleted", rev_deleted==0 ? ZERO : new Integer(rev_deleted) }});
+				{"rev_deleted", rev_deleted==0 ? ZERO : new Integer(rev_deleted) },
+				{"rev_sha1", new String(revision.shal)},//ChenQ
+				{"rev_content_model", new String(revision.Model)}//ChenQ
+				});
 		
 		lastRevision = revision;
 	}
