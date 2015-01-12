@@ -139,6 +139,7 @@ public class XmlDumpReader  extends DefaultHandler {
 		startElements.put("siteinfo","siteinfo");
 		startElements.put("namespaces","namespaces");
 		startElements.put("namespace","namespace");
+		startElements.put("text","text");
 
 		endElements.put("ThreadSubject","ThreadSubject");
 		endElements.put("ThreadParent","ThreadParent");
@@ -196,6 +197,10 @@ public class XmlDumpReader  extends DefaultHandler {
 			if (qName == "revision") openRevision();
 			else if (qName == "contributor") openContributor();
 			else if (qName == "page") openPage();
+			
+			// Extracting "Byte" attribute from the "Text" element
+			else if (qName == "text") openText(attributes);
+			
 			// rare tags:
 			else if (qName == "mediawiki") openMediaWiki();
 			else if (qName == "siteinfo") openSiteinfo();
@@ -229,7 +234,9 @@ public class XmlDumpReader  extends DefaultHandler {
 			if (qName == "id") readId();
 			else if (qName == "revision") closeRevision();
 			else if (qName == "timestamp") readTimestamp();
-			else if (qName == "text") readText();
+			// Element of "Text" has beed handled by openText() and closeText()
+			// else if (qName == "text") readText();
+			else if (qName == "text") closeText();
 			else if (qName == "contributor") closeContributor();
 			else if (qName == "username") readUsername();
 			else if (qName == "ip") readIp();
@@ -325,6 +332,14 @@ public class XmlDumpReader  extends DefaultHandler {
 	}
 
 	void closeNamespaces() {
+		// NOP
+	}
+	
+	void openText(Attributes attribs) {
+		rev.Text = attribs.getValue("bytes");			
+	}
+	
+	void closeText() {
 		// NOP
 	}
 	
